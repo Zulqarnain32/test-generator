@@ -1,0 +1,145 @@
+import { useState, useEffect } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+const QuestionList = ({ questions }) => {
+  const [selected, setSelected] = useState({});
+  const [showTest, setShowTest] = useState(false);
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('selectedQuestions');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setSelected(parsed);
+      if (Object.keys(parsed).length > 0) setShowTest(true);
+    }
+  }, []);
+
+  // Save to localStorage whenever selected changes
+  useEffect(() => {
+    localStorage.setItem('selectedQuestions', JSON.stringify(selected));
+  }, [selected]);
+
+  const handleSelect = (question) => {
+    setSelected((prev) => {
+      const updated = { ...prev };
+      if (updated[question._id]) {
+        delete updated[question._id];
+      } else {
+        updated[question._id] = question;
+      }
+      return updated;
+    });
+  };
+
+  const downloadAsPDF = async () => {
+    const input = document.getElementById('pdf-content');
+    const canvas = await html2canvas(input);
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('test.pdf');
+  };
+
+  const selectedQuestions = Object.values(selected);
+
+  return (
+    <div className="p-4">
+      {/* Question List */}
+      <div className="space-y-3 mt-6">
+        {questions.map((q) => (
+          <div
+            key={q._id}
+            onClick={() => handleSelect(q)}
+            className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${
+              selected[q._id] ? 'bg-blue-100 border-blue-500' : 'bg-white'
+            }`}
+          >
+            <input
+              type="checkbox"
+              checked={!!selected[q._id]}
+              onChange={() => handleSelect(q)}
+              onClick={(e) => e.stopPropagation()}
+              className="mt-1 accent-blue-500"
+            />
+            <p className="text-gray-800">{q.question}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Generate Test Button */}
+      {selectedQuestions.length > 0 && !showTest && (
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setShowTest(true)}
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
+          >
+            Generate Test
+          </button>
+        </div>
+      )}
+
+      {/* Generated Test View */}
+      {showTest && (
+        <>
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={downloadAsPDF}
+              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
+            >
+              Download as PDF
+            </button>
+          </div>
+
+          <div
+            id="pdf-content"
+            className="mt-8 p-6 max-w-3xl mx-auto border rounded-xl bg-white shadow-md"
+          >
+            {/* School Template */}
+            <div className="mb-6 text-gray-800 text-lg space-y-2">
+              <h2 className="text-2xl font-bold text-center mb-4">Model Paper</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <strong>Student Name:</strong> ______________________
+                </div>
+                <div>
+                  <strong>Father's Name:</strong> ______________________
+                </div>
+                <div>
+                  <strong>Roll No:</strong> ______________________
+                </div>
+                <div>
+                  <strong>Date:</strong> ______________________
+                </div>
+              </div>
+              <div>
+                <strong>Instructions:</strong>
+                <ul className="list-disc pl-6">
+                  <li>Attempt all questions.</li>
+                  <li>Write clearly and neatly.</li>
+                  <li>Use of unfair means is prohibited.</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Questions */}
+            <ol className="list-decimal pl-6 space-y-3 text-gray-800 text-lg">
+              {selectedQuestions.map((q, idx) => (
+                <li key={q._id}>
+               
+                  {q.question}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+export default QuestionList;
