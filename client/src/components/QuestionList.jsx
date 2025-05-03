@@ -1,25 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { AuthContext } from "../global/AuthContext";
 
 const QuestionList = ({ questions }) => {
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
+   const { user, setUser } = useContext(AuthContext);
+   console.log("papar user is ", user)
 
-  // Load from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem('selectedQuestions');
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      setSelected(parsed);
-      if (Object.keys(parsed).length > 0) setShowTest(true);
-    }
-  }, []);
+ 
 
-  // Save to localStorage whenever selected changes
-  useEffect(() => {
-    localStorage.setItem('selectedQuestions', JSON.stringify(selected));
-  }, [selected]);
+ 
 
   const handleSelect = (question) => {
     setSelected((prev) => {
@@ -86,14 +78,7 @@ const QuestionList = ({ questions }) => {
       {/* Generated Test View */}
       {showTest && (
         <>
-          <div className="flex justify-center mt-4">
-            <button
-              onClick={downloadAsPDF}
-              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
-            >
-              Download as PDF
-            </button>
-          </div>
+         
 
           <div
             id="pdf-content"
@@ -101,7 +86,7 @@ const QuestionList = ({ questions }) => {
           >
             {/* School Template */}
             <div className="mb-6 text-gray-800 text-lg space-y-2">
-              <h2 className="text-2xl font-bold text-center mb-4">Model Paper</h2>
+              <h2 className="text-2xl font-bold text-center mb-4 capitalize">{user?.school}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <strong>Student Name:</strong> ______________________
@@ -138,8 +123,17 @@ const QuestionList = ({ questions }) => {
           </div>
         </>
       )}
+       <div className="flex justify-center mt-4">
+            <button
+              onClick={downloadAsPDF}
+              className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition"
+            >
+              Download as PDF
+            </button>
+          </div>
     </div>
   );
 };
 
 export default QuestionList;
+
