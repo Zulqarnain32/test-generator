@@ -2,10 +2,13 @@ import { useState, useEffect,useContext } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { AuthContext } from "../global/AuthContext";
+import { BarLoader } from "react-spinners";
 
 const QuestionList = ({ questions }) => {
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
+  const [loading, setLoading] = useState(false);
+
    const { user, setUser } = useContext(AuthContext);
    console.log("papar user is ", user)
   const handleSelect = (question) => {

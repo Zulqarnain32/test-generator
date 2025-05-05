@@ -4,12 +4,16 @@ import axios from "axios"
 import { useCookies } from "react-cookie"
 import { toast } from 'react-toastify'
 import { AuthContext } from "../global/AuthContext"
+import { BarLoader } from "react-spinners";
+
 import 'react-toastify/dist/ReactToastify.css'
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [cookies, setCookies] = useCookies(["access_token"])
+  const [loading, setLoading] = useState(false);
+  
   const { setUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
@@ -17,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+     setLoading(true)
     // axios.post('http://localhost:5000/api/auth/login', { email, password })
     axios.post('https://test-generator.vercel.app/api/auth/login', { email, password })
       .then(result => {
@@ -49,6 +53,9 @@ const Login = () => {
         toast.error("Server error. Try again later.", { autoClose: 2500 })
         console.log(err)
       })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
 
@@ -75,7 +82,7 @@ const Login = () => {
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200"
           >
-            Log In
+            {loading ? <BarLoader color="white" height={4} width={100} /> : "Log in"}
           </button>
 
          
