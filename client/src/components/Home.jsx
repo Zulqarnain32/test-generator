@@ -8,12 +8,12 @@ const Home = () => {
   return (
     <div className= "h-[calc(100vh-70px)] bg-body flex flex-col justify-center items-center text-text">
       <div className="text-center space-y-6 max-w-2xl px-4">
-        <h1 className="text-5xl font-extrabold">Welcome <span className='text-blue-500'>{user?.email}</span> to the Test Generator</h1>
-        <p className="text-xl  ">
+        {/* <h1 className="text-5xl font-extrabold">Welcome <span className='text-blue-500'>{user?.email}</span> to the Test Generator</h1> */}
+        <h1 className=" md:text-5xl text-2xl font-extrabold">Welcome <span className='text-blue-500'>i@gmail.com</span> to the Test Generator</h1>
+        <p className="text-xl">
           Generate custom tests for your Computer Science study material in just a few clicks.
         </p>
         <Link to="/test-generator">
-          {/* <button className="mt-5 bg-blue-600 hover:bg-blue-700 text-white text-lg py-2 px-6 rounded-lg shadow-lg "> */}
           <button className="mt-5 bg-navbar hover:bg-black text-white text-lg py-2 px-6 rounded-lg shadow-lg ">
             Start Generating Test
           </button>

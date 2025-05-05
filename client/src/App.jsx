@@ -4,16 +4,26 @@ import Registration from './components/Registration';
 import TestGenerator from './components/TestGenerator'; // This is the page with chapter selection and question listing
 import Navbar from './components/Navbar';
 import Login from './components/Login';
+import { ToastContainer } from 'react-toastify';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 function App() {
 
   return (
     <Router>
+      <ToastContainer 
+        position="top-center" 
+        autoClose={2000}
+      />
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
         <Route path="/test-generator" element={<TestGenerator />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
+
       </Routes>
     </Router>
   );

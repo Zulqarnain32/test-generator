@@ -1,74 +1,161 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom"
-import axios from "axios"
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+// import React, { useState } from 'react'
+// import { Link, useNavigate } from "react-router-dom"
+// import axios from "axios"
+// import { toast } from 'react-toastify'
+// import 'react-toastify/dist/ReactToastify.css'
+
+// const Registration = () => {
+//   const [username, setUsername] = useState("")
+//   const [email, setEmail] = useState("")
+//   const [school,setSchool] = useState("")
+//   const [password, setPassword] = useState("")
+//   const navigate = useNavigate()
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+
+//     axios.post('http://localhost:5000/api/auth/register', { school, email, password })
+//       .then(result => {
+//         console.log("registration", result)
+//         const msg = result?.data?.message;
+
+        
+
+//         if (msg === "please fill all the fields") {
+//           toast.warning("Please fill all the fields");
+//         } else if (msg === "email already exist") {
+//           toast.error("Email already exists");
+//         } else {
+//           toast.success("Registered Successfully!");
+//           navigate("/login");
+//         }
+
+//       }).catch(err => {
+//         const message = err.response?.data?.message || "Something went wrong";
+//         toast.error(message);
+//       });
+//   }
+
+//   return (
+//     <div className="flex justify-center items-center h-[calc(100vh-70px)] ">
+//       <div className="bg-white p-6 w-80 rounded-lg shadow-lg">
+//         <p className="text-center text-2xl font-extrabold text-text mb-4">TESTSOLUTION</p>
+
+//         <form className="flex flex-col" onSubmit={handleSubmit}>
+         
+//           <input
+//             type="email"
+//             placeholder="Email"
+//             onChange={(e) => setEmail(e.target.value)}
+//             className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
+//           />
+//           <input
+//             type="text"
+//             placeholder="School "
+//             onChange={(e) => setSchool(e.target.value)}
+//             className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
+//           />
+//           <input
+//             type="password"
+//             placeholder="Password"
+//             onChange={(e) => setPassword(e.target.value)}
+//             className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
+//           />
+
+//           <button
+//             type="submit"
+//             // className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200"
+//             className="bg-text text-white font-semibold py-2 rounded-md transition duration-200"
+//           >
+//             Register
+//           </button>
+
+//           <hr className="my-4 border-gray-300" />
+
+//           <Link
+//             to="/login"
+//             // className="bg-green-600 text-center hover:bg-green-700 text-white font-semibold py-2 rounded-md w-3/4 mx-auto transition duration-200"
+//             className=" text-center text-text font-semibold  rounded-md w-3/4 mx-auto transition duration-200"
+//           >
+//             Already have an Account
+//           </Link>
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Registration;
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = () => {
-  const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [school,setSchool] = useState("")
-  const [password, setPassword] = useState("")
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [school, setSchool] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    axios.post('http://localhost:5000/api/auth/register', { school, email, password })
-      .then(result => {
-        console.log(result)
-        const msg = result?.data?.message;
-
-        if (msg === "please fill all the fields") {
-          toast.warning("Please fill all the fields");
-        } else if (msg === "email already exist") {
-          toast.error("Email already exists");
-        } else {
-          toast.success("Registered Successfully!");
-          navigate("/login");
-        }
-
-      }).catch(err => {
-        const message = err.response?.data?.message || "Something went wrong";
-        toast.error(message);
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/register', {
+        school,
+        email,
+        password
       });
-  }
+
+      const msg = response?.data?.message;
+
+      if (msg === "Please fill all the fields") {
+        toast.warning(msg);
+      } else if (msg === "Email already exists") {
+        toast.error(msg);
+      } else if (msg === "Registered Successfully") {
+        toast.success(msg);
+        toast.success("please check your email we have sent a link to login")
+        // navigate("/login");
+      } else {
+        toast.info(msg || "Unexpected response");
+      }
+
+    } catch (error) {
+      const message = error?.response?.data?.message || "Something went wrong";
+      toast.error(message);
+    }
+  };
 
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-70px)] ">
+    <div className="flex justify-center items-center h-[calc(100vh-70px)]">
       <div className="bg-white p-6 w-80 rounded-lg shadow-lg">
-        {/* <p className="text-center text-2xl font-extrabold text-blue-500 mb-4">TEST<span className='text-red-500'>SOLUTION</span></p> */}
         <p className="text-center text-2xl font-extrabold text-text mb-4">TESTSOLUTION</p>
 
         <form className="flex flex-col" onSubmit={handleSubmit}>
-          {/* <input
-            type="text"
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          /> */}
           <input
             type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
-            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
           />
           <input
             type="text"
-            placeholder="School "
+            placeholder="School"
             onChange={(e) => setSchool(e.target.value)}
-            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
           />
           <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="p-2 mb-3 border rounded focus:outline-none focus:ring-2 focus:ring-navbar"
           />
 
           <button
             type="submit"
-            // className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md transition duration-200"
             className="bg-text text-white font-semibold py-2 rounded-md transition duration-200"
           >
             Register
@@ -78,8 +165,7 @@ const Registration = () => {
 
           <Link
             to="/login"
-            // className="bg-green-600 text-center hover:bg-green-700 text-white font-semibold py-2 rounded-md w-3/4 mx-auto transition duration-200"
-            className=" text-center text-text font-semibold  rounded-md w-3/4 mx-auto transition duration-200"
+            className="text-center text-text font-semibold w-3/4 mx-auto transition duration-200"
           >
             Already have an Account
           </Link>

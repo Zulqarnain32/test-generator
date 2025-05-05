@@ -7,10 +7,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import React from "react";
 import { AuthContext } from "../global/AuthContext";
 import axios from "axios";
+import { toast } from 'react-toastify'
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+
   const [showNavbar, setShowNavbar] = useState(false);
   const { user, setUser } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   console.log("navbar user is ", user)
  
 
@@ -23,15 +26,16 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    console.log("logout button clicke");
     setUser(null); // clear user context
-    localStorage.removeItem("user"); // remove saved user from localStorage
-    localStorage.removeItem("id");   // if you saved id separately
-    removeCookies("access_token");   // remove auth cookie
-  
-    toast.success("Logged out successfully", { autoClose: 2000 }); // optional
-    navigate("/login"); // redirect to login page
-  }
+    localStorage.removeItem("user");
+    localStorage.removeItem("id");
+    toast.success("Logged out successfully", { autoClose: 2000 });
 
+    setTimeout(() => {
+      navigate("/");
+    }, 100); // slight delay to let toast render
+  };
 
   useEffect(() => {
     if (showNavbar) {
@@ -79,7 +83,10 @@ const Navbar = () => {
           className="md:text-white  block py-4 px-4 border-b md:border-0"
           onClick={closeNav}
         >
-          Favorite
+          {user?.email}
+
+
+          
         </Link>
         {/* {isAdmin && (
           <Link
