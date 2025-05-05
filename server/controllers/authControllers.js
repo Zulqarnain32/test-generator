@@ -3,39 +3,6 @@ const bcrypt = require("bcryptjs");
 const Usermodel = require("../models/UserModel");
 const nodemailer = require("nodemailer");
 
-// const register = async (req, res) => {
-//   try {
-//     console.log("req body ", req.body);
-    
-//     const { school,email, password} = req.body;
-//     console.log("user data ", school,email,password);
-    
-//     if(!school || !email || !password ){
-//       return res.json({message:"please fill all the fields"})
-//     }
-//     const user = await Usermodel.findOne({ email });
-//     if(user){
-//       return res.json({message:"email already exist"})
-//     }
-
-    
-//     const hashPassword = await bcrypt.hash(password, 10);
-//     const newUser = new Usermodel({ school,email,password:hashPassword });
-//     await newUser.save();
-//     console.log("user registered");
-    
-//     res.json({ message: `user ${email} registered` });
-
-
-//     // send email fo login
-  
-
-//   } catch (err) {
-//     console.log(err);
-    
-//     res.json(err);
-//   }
-// };
 
 
 const register = async (req, res) => {
@@ -69,7 +36,7 @@ const register = async (req, res) => {
       to: email,
       subject: "Welcome to Our Platform!",
       // text: `Click the link to reset your password: http://localhost:5173/test-generator`,
-      text: `Click the link to reset your password: https://test-generator-frontend-amber.vercel.app/test-generator`,
+      text: `Click the link to generate test: https://test-generator-frontend-amber.vercel.app/test-generator`,
 
      
     };
