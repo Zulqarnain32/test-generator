@@ -7,8 +7,10 @@ import Login from './components/Login';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import { AuthContext } from '../global/AuthContext';
+import { useContext } from 'react';
 function App() {
-
+   const { user } = useContext(AuthContext);
   return (
     <Router>
       <ToastContainer 
@@ -20,7 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/test-generator" element={<TestGenerator />} />
+        <Route path="/test-generator" element={user?.email ? <TestGenerator/>:<Login/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
 
