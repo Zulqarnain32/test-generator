@@ -8,11 +8,6 @@ const QuestionList = ({ questions }) => {
   const [showTest, setShowTest] = useState(false);
    const { user, setUser } = useContext(AuthContext);
    console.log("papar user is ", user)
-
- 
-
- 
-
   const handleSelect = (question) => {
     setSelected((prev) => {
       const updated = { ...prev };
