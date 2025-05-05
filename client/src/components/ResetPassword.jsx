@@ -22,7 +22,8 @@ const ResetPassword = () => {
     }
 
     axios
-      .post(`http://localhost:5000/api/auth/reset-password/${token}`, { password })
+      // .post(`http://localhost:5000/api/auth/reset-password/${token}`, { password })
+      .post(`https://test-generator.vercel.app/api/auth/reset-password/${token}`, { password })
       .then((result) => {
         // setError(result.data.message);
         toast.success("Password updatad successfully")

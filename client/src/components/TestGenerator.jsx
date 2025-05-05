@@ -10,7 +10,8 @@ const TestGenerator = () => {
 
   useEffect(() => {
     if (chapter) {
-      axios.get(`http://localhost:5000/api/questions/chapter/${chapter}`)
+      // axios.get(`http://localhost:5000/api/questions/chapter/${chapter}`)
+      axios.get(`https://test-generator.vercel.app/api/questions/chapter/${chapter}`)
         .then((res) => {
           setQuestions(res.data);
           setChapterName(res.data[0].chapterName);

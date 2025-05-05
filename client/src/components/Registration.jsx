@@ -103,7 +103,8 @@ const Registration = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      // const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('https://test-generator.vercel.app/api/auth/register', {
         school,
         email,
         password
