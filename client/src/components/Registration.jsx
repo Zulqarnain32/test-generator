@@ -17,13 +17,14 @@ const Registration = () => {
     e.preventDefault();
     setLoading(true)
   
-    // axios POST request using .then and .catch
+    // axios.post('http://localhost:5000/api/auth/register', {
     axios.post('https://test-generator.vercel.app/api/auth/register', {
       school,
       email,
       password
     })
     .then((response) => {
+      console.log("registara rw ",response )
       const msg = response?.data?.message;
   
       if (msg === "Please fill all the fields") {
