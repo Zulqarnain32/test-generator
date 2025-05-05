@@ -68,7 +68,8 @@ const register = async (req, res) => {
       from: "zulqarnainc67@gmail.com",
       to: email,
       subject: "Welcome to Our Platform!",
-      text: `Click the link to reset your password: http://localhost:5173/test-generator`,
+      // text: `Click the link to reset your password: http://localhost:5173/test-generator`,
+      text: `Click the link to reset your password: https://test-generator-frontend-amber.vercel.app/test-generator`,
 
      
     };
@@ -141,7 +142,8 @@ const forgotPassword = async (req, res) => {
       from: "zulqarnainc67@gmail.com",
       to: "iamzulqarnainchohan@gmail.com", // Send email to the user's provided email
       subject: "Reset Your Password",
-      text: `Click the link to reset your password: http://localhost:5173/resetPassword/${emailToken}`,
+      // text: `Click the link to reset your password: http://localhost:5173/resetPassword/${emailToken}`,
+      text: `Click the link to reset your password: https://test-generator-frontend-amber.vercel.app/resetPassword/${emailToken}`,
     //   html: `
     //   <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f8f9fa;">
     //     <h2 style="color: #333;">Reset Your Password</h2>

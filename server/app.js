@@ -13,6 +13,8 @@ app.use(
       credentials: true,
     })
 );
+
+
 app.use(express.json());
 dbConnect()
 app.use('/api/questions', questionRoutes);
