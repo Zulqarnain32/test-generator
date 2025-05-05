@@ -10,7 +10,7 @@ const Home = () => {
       <div className="text-center space-y-6 max-w-2xl px-4">
         <h1 className="xs:text-3xl md:text-5xl font-extrabold">Welcome <span className='text-blue-500'>{user?.email}</span> to the Test Generator</h1>
         <p className="text-xl">
-          aGenerate custom tests for your Computer Science study material in just a few clicks.
+          Generate custom tests for your Computer Science study material in just a few clicks.
         </p>
         <Link to="/test-generator">
           <button className="mt-5 bg-navbar hover:bg-black text-white text-lg py-2 px-6 rounded-lg shadow-lg ">

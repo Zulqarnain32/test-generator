@@ -7,7 +7,7 @@ import Login from './components/Login';
 import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
-import { AuthContext } from '../global/AuthContext';
+import { AuthContext } from './global/AuthContext'
 import { useContext } from 'react';
 
 function App() {
