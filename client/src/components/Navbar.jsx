@@ -7,15 +7,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import React from "react";
 import { AuthContext } from "../global/AuthContext";
 import axios from "axios";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
-
   const [showNavbar, setShowNavbar] = useState(false);
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log("navbar user is ", user)
- 
+  console.log("navbar user is ", user);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -46,12 +44,9 @@ const Navbar = () => {
   }, [showNavbar]);
 
   return (
-    <div
-  className="bg-navbar w-full sticky top-0 h-[70px] flex justify-between items-center px-10 xs:px-5 z-10">
+    <div className="bg-navbar w-full sticky top-0 h-[70px] flex justify-between items-center px-10 xs:px-5 z-10">
       <div className="flex items-center text-[25px] text-white">
-        <h4 className="font-extrabold">
-            TESTSOLUTION 
-        </h4>
+        <h4 className="font-extrabold">TESTSOLUTION</h4>
       </div>
       <div
         className="block md:hidden cursor-pointer"
@@ -77,37 +72,16 @@ const Navbar = () => {
         >
           Home
         </Link>
-       
+
+       {user?.email && <>
         <Link
-          to="/favorite"
-          className="md:text-white  block py-4 px-4 border-b md:border-0"
+          to="dcn"
+          className="xs:hidden md:text-white  block py-4 px-4 border-b md:border-0"
           onClick={closeNav}
         >
           {user?.email}
-
-
-          
         </Link>
-        {/* {isAdmin && (
-          <Link
-            to="/dashboard"
-            className="md:text-white  block py-4 px-4 border-b md:border-0"
-            onClick={closeNav}
-          >
-            DASHBOARD
-          </Link>
-        )} */}
-
-        {/* {user && (
-          <Link
-            className="text-red-500  md:text-red-500 block py-4 px-4 border-b md:border-0 xs:text-sm"
-            onClick={closeNav}
-          >
-            {user.username}
-          </Link>
-        )} */}
-
-        
+       </>}
 
         {user?.email ? (
           <button

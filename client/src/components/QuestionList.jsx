@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { AuthContext } from "../global/AuthContext";
-import { BarLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
 const QuestionList = ({ questions }) => {
   const [selected, setSelected] = useState({});
@@ -47,7 +47,7 @@ const QuestionList = ({ questions }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-start h-screen">
-        <BarLoader color="#3b82f6" height={4} width={150} />
+        <FadeLoader color='#3B82F6'/>
       </div>
     );
   }
