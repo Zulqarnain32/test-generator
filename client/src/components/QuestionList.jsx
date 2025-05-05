@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { AuthContext } from "../global/AuthContext";
 import { FadeLoader } from "react-spinners";
-
+import { toast } from "react-toastify"
 const QuestionList = ({ questions }) => {
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
@@ -30,6 +30,7 @@ const QuestionList = ({ questions }) => {
   };
 
   const downloadAsPDF = async () => {
+    toast.success("PDF has been downloaded")
     const input = document.getElementById('pdf-content');
     const canvas = await html2canvas(input);
     const imgData = canvas.toDataURL('image/png');
@@ -80,7 +81,7 @@ const QuestionList = ({ questions }) => {
       {selectedQuestions.length > 0 && !showTest && (
         <div className="mt-6 text-center">
           <button
-            onClick={() => setShowTest(true)}
+            onClick={() => {setShowTest(true),toast.success("Test has been generated")} }
             className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
           >
             Generate Test
