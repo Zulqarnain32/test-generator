@@ -75,7 +75,7 @@ const Registration = () => {
 
           <button
             type="submit"
-            className="bg-text text-white font-semibold py-2 rounded-md transition duration-200"
+            className="bg-text text-white flex justify-center items-center font-semibold py-2 rounded-md transition duration-200"
           >
             {loading ? <BarLoader color="white" height={4} width={100} /> : "Register"}
           </button>
