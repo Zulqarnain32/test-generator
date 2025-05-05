@@ -7,8 +7,8 @@ const authRoutes = require('./routes/authRoutes')
 const app = express();
 app.use(
     cors({
-      // origin: ["http://localhost:5173"],
-      origin: ["https://test-generator-frontend-amber.vercel.app"],
+      origin: ["http://localhost:5173"],
+      // origin: ["https://test-generator-frontend-amber.vercel.app"],
       methods: ["GET", "POST", "PUT", "DELETE"],
       credentials: true,
     })
