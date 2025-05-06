@@ -13,7 +13,6 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log("navbar user is ", user);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);

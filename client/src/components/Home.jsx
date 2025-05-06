@@ -4,7 +4,6 @@ import { AuthContext } from '../global/AuthContext';
 import { useContext } from 'react';
 const Home = () => {
     const { user } = useContext(AuthContext);
-    console.log("home user is ", user)
   return (
     <div className= "overflow-hidden h-[calc(100vh-70px)] top-[70px] bg-body flex flex-col justify-center items-center text-text">
       <div className="text-center space-y-6 max-w-2xl px-4">

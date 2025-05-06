@@ -12,7 +12,7 @@ import { useContext } from 'react';
 
 function App() {
    const { user } = useContext(AuthContext);
-   console.log("home user is ", user)
+  //  console.log("home user is ", user)
   
   return (
     <Router>

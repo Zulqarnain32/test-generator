@@ -5,11 +5,20 @@ import { AuthContext } from "../global/AuthContext";
 import { FadeLoader } from "react-spinners";
 import { toast } from "react-toastify"
 const QuestionList = ({ questions }) => {
+  console.log("questions ", questions)
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
+  let shortQuestion = questions.filter((question) => {
+     return question.type == "short"
+  })
+  console.log("short question are ", shortQuestion)
+  let longQuestion = questions.filter((question) => {
+    return question.type == "long"
+ })
+ console.log("long question  are ", longQuestion)
 
   useEffect(() => {
     if (questions && questions.length > 0) {
@@ -57,7 +66,27 @@ const QuestionList = ({ questions }) => {
     <div className="p-4">
       {/* Question List */}
       <div className="space-y-3 mt-6">
-        {questions.map((q) => (
+        <h3 className="font-bold text-xl mb-2">Short Questions</h3>
+        {shortQuestion.map((q) => (
+          <div
+            key={q._id}
+            onClick={() => handleSelect(q)}
+            className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${
+              selected[q._id] ? 'bg-blue-100 border-blue-500' : 'bg-white'
+            }`}
+          >
+            <input
+              type="checkbox"
+              checked={!!selected[q._id]}
+              onChange={() => handleSelect(q)}
+              onClick={(e) => e.stopPropagation()}
+              className="mt-1 accent-blue-500"
+            />
+            <p className="text-gray-800">{q.question}</p>
+          </div>
+        ))}
+        <h3 className="font-bold text-xl mb-2">Long Questions</h3>
+        {longQuestion.map((q) => (
           <div
             key={q._id}
             onClick={() => handleSelect(q)}
@@ -123,12 +152,33 @@ const QuestionList = ({ questions }) => {
               </div>
             </div>
 
-            {/* Questions */}
-            <ol className="list-decimal pl-6 space-y-3 text-gray-800 text-lg">
-              {selectedQuestions.map((q, idx) => (
-                <li key={q._id}>{q.question}</li>
-              ))}
-            </ol>
+        
+{selectedQuestions.some(q => q.type === "short") && (
+  <>
+    <h3 className="font-bold text-xl mb-2">Short Questions</h3>
+    <ol className="list-decimal pl-6 space-y-2 mb-6">
+      {selectedQuestions
+        .filter(q => q.type === "short")
+        .map((q, index) => (
+          <li key={q._id}>{q.question}</li>
+        ))}
+    </ol>
+  </>
+)}
+
+{selectedQuestions.some(q => q.type === "long") && (
+  <>
+    <h3 className="font-bold text-xl mb-2">Long Questions</h3>
+    <ol className="list-decimal pl-6 space-y-2">
+      {selectedQuestions
+        .filter(q => q.type === "long")
+        .map((q, index) => (
+          <li key={q._id}>{q.question}</li>
+        ))}
+    </ol>
+  </>
+)}
+
           </div>
         </>
       )}

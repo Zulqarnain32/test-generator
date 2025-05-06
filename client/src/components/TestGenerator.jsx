@@ -2,19 +2,16 @@ import { useState, useEffect } from 'react';
 import ChapterButtons from './ChapterButton';
 import QuestionList from './QuestionList';
 import axios from 'axios';
-import { BarLoader } from "react-spinners";
 
 const TestGenerator = () => {
   const [chapter, setChapter] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [chapterName, setChapterName] = useState("");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
     if (chapter) {
       axios.get(`http://localhost:5000/api/questions/chapter/${chapter}`)
-      // axios.get(`https://test-generator.vercel.app/api/questions/chapter/${chapter}`)
+       
         .then((res) => {
           setQuestions(res.data);
           setChapterName(res.data[0].chapterName);
@@ -22,9 +19,7 @@ const TestGenerator = () => {
         .catch(() => {
           console.log("error");
         }) 
-        .finally(() => {
-          setLoading(false)
-        })
+      
     }
   }, [chapter]);
 

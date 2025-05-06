@@ -18,7 +18,6 @@ const Registration = () => {
     setLoading(true)
   
     axios.post('http://localhost:5000/api/auth/register', {
-    // axios.post('https://test-generator.vercel.app/api/auth/register', {
       school,
       email,
       password
