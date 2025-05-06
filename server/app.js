@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const questionRoutes = require('./routes/questionRoutes');
+const mcqsRoutes = require("./routes/mcqsRoutes")
 const dbConnect = require('./config/db');
 const authRoutes = require('./routes/authRoutes')
 const app = express();
@@ -17,6 +18,7 @@ app.use(
 app.use(express.json());
 dbConnect()
 app.use('/api/questions', questionRoutes);
+app.use('/api/mcqs', mcqsRoutes);
 app.use('/api/auth', authRoutes)
 
 const PORT = 5000;

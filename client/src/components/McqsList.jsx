@@ -4,18 +4,14 @@ import html2canvas from 'html2canvas';
 import { AuthContext } from "../global/AuthContext";
 import { FadeLoader } from "react-spinners";
 import { toast } from "react-toastify"
-const QuestionList = ({ questions }) => {
+const McqsList = ({ questions }) => {
+  console.log("mcqs list ", questions)
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
-  let shortQuestion = questions.filter((question) => {
-     return question.type == "short"
-  })
-  let longQuestion = questions.filter((question) => {
-    return question.type == "long"
- })
+
 
   useEffect(() => {
     if (questions && questions.length > 0) {
@@ -63,8 +59,8 @@ const QuestionList = ({ questions }) => {
     <div className="p-4">
       {/* Question List */}
       <div className="space-y-3 mt-6">
-        <h3 className="font-bold text-xl mb-2">Short Questions</h3>
-        {shortQuestion.map((q) => (
+        <h3 className="font-bold text-xl mb-2"> Questions</h3>
+        {questions.map((q) => (
           <div
             key={q._id}
             onClick={() => handleSelect(q)}
@@ -82,25 +78,7 @@ const QuestionList = ({ questions }) => {
             <p className="text-gray-800">{q.question}</p>
           </div>
         ))}
-        <h3 className="font-bold text-xl mb-2">Long Questions</h3>
-        {longQuestion.map((q) => (
-          <div
-            key={q._id}
-            onClick={() => handleSelect(q)}
-            className={`flex items-start gap-3 p-4 border rounded-xl cursor-pointer transition-all duration-200 ${
-              selected[q._id] ? 'bg-blue-100 border-blue-500' : 'bg-white'
-            }`}
-          >
-            <input
-              type="checkbox"
-              checked={!!selected[q._id]}
-              onChange={() => handleSelect(q)}
-              onClick={(e) => e.stopPropagation()}
-              className="mt-1 accent-blue-500"
-            />
-            <p className="text-gray-800">{q.question}</p>
-          </div>
-        ))}
+      
       </div>
 
       {/* Generate Test Button */}
@@ -122,59 +100,31 @@ const QuestionList = ({ questions }) => {
             id="pdf-content"
             className="mt-8 p-6 max-w-3xl mx-auto border rounded-xl bg-white shadow-md"
           >
-            {/* School Template */}
-            <div className="mb-6 text-gray-800 text-lg space-y-2">
-              <h2 className="text-2xl font-bold text-center mb-4 capitalize">{user?.school}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <strong>Student Name:</strong> ______________________
-                </div>
-                <div>
-                  <strong>Father's Name:</strong> ______________________
-                </div>
-                <div>
-                  <strong>Roll No:</strong> ______________________
-                </div>
-                <div>
-                  <strong>Date:</strong> ______________________
-                </div>
-              </div>
-              <div>
-                <strong>Instructions:</strong>
-                <ul className="list-disc pl-6">
-                  <li>Attempt all questions.</li>
-                  <li>Write clearly and neatly.</li>
-                  <li>Use of unfair means is prohibited.</li>
-                </ul>
-              </div>
-            </div>
+           
 
-        
-{selectedQuestions.some(q => q.type === "short") && (
+
+           {selectedQuestions && (
   <>
-    <h3 className="font-bold text-xl mb-2">Short Questions</h3>
-    <ol className="list-decimal pl-6 space-y-2 mb-6">
-      {selectedQuestions
-        .filter(q => q.type === "short")
-        .map((q, index) => (
-          <li key={q._id}>{q.question}</li>
-        ))}
+    <ol className="list-decimal pl-6 space-y-4">
+      {selectedQuestions.map((q, index) => (
+        <li key={q._id}>
+          <p className="font-medium">{q.question}</p>
+          {q.options && (
+            <ul className="list-[upper-alpha] pl-6 mt-1 space-y-1 flex flex-wrap gap-x-4">
+              {q.options.map((opt, i) => (
+                <li key={i} className="w-[48%]">{opt}</li>  
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
     </ol>
   </>
 )}
 
-{selectedQuestions.some(q => q.type === "long") && (
-  <>
-    <h3 className="font-bold text-xl mb-2">Long Questions</h3>
-    <ol className="list-decimal pl-6 space-y-2">
-      {selectedQuestions
-        .filter(q => q.type === "long")
-        .map((q, index) => (
-          <li key={q._id}>{q.question}</li>
-        ))}
-    </ol>
-  </>
-)}
+
+
+
 
           </div>
         </>
@@ -195,4 +145,4 @@ const QuestionList = ({ questions }) => {
   );
 };
 
-export default QuestionList;
+export default McqsList;
