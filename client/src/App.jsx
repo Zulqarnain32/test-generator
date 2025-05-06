@@ -28,7 +28,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         {/* <Route path="/test-generator" element={<TestGenerator/>} /> */}
         <Route path="/test-generator" element={user?.email ? <TestGenerator/>:<Login/>} />
-        <Route path="/test-generator/mcqs-generator" element={<McqsGenerator/>} />
+        <Route path="/mcqs-generator" element={user?.email ? <McqsGenerator/>:<Login/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
 

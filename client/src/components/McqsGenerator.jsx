@@ -1,14 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useContext } from 'react';
 // import ChapterButtons from './ChapterButton';
 import ChapterButtonsMcqs from './ChapterButtonMcqs';
 // import QuestionList from './QuestionList';
 import axios from 'axios';
 import McqsList from './McqsList';
+import { AuthContext } from '../global/AuthContext';
 
 const McqsGenerator = () => {
   const [chapter, setChapter] = useState(null);
   const [mcqs, setMcqs] = useState([]);
   const [chapterName, setChapterName] = useState("");
+  const { user } = useContext(AuthContext)
+  // console.log("user school is ", user?.school)
+
 
   useEffect(() => {
     if (chapter) {
@@ -27,7 +31,7 @@ const McqsGenerator = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Computer Science Mcqs Generator</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Computer Science Mcqs Test Generator</h1>
       <ChapterButtonsMcqs onSelectChapter={setChapter} />
       {chapter && (
         <div>

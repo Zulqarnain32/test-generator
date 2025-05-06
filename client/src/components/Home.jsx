@@ -12,8 +12,13 @@ const Home = () => {
           Generate custom tests for your Computer Science study material in just a few clicks.
         </p>
         <Link to="/test-generator">
-          <button className="mt-5 bg-navbar hover:bg-black text-white text-lg py-2 px-6 rounded-lg shadow-lg ">
-            Start Generating Test
+          <button className="mt-5 mr-3 bg-navbar hover:bg-black text-white text-lg py-2 px-6 rounded-lg shadow-lg ">
+            Start Generating Questions
+          </button>
+        </Link>
+        <Link to="/mcqs-generator">
+          <button className="mt-5 ml-3 bg-navbar hover:bg-black text-white text-lg py-2 px-6 rounded-lg shadow-lg ">
+            Start Generating Mcqs
           </button>
         </Link>
       </div>

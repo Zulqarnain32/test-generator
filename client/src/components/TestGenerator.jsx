@@ -26,14 +26,14 @@ const TestGenerator = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Computer Science Test Generator</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Computer Science Question Test Generator</h1>
     
       <ChapterButtons onSelectChapter={setChapter} />
       {chapter && (
         <div>
-          <h2 className="text-xl font-semibold mt-6 mb-2">
+          <h3 className="text-xl font-bold mt-6  mb-6">
             Chapter {chapter} {chapterName}:
-          </h2>
+          </h3>
           <QuestionList questions={questions} />
         </div>
       )}
