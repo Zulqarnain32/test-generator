@@ -5,6 +5,7 @@ import { AuthContext } from "../global/AuthContext";
 import { FadeLoader } from "react-spinners";
 import { toast } from "react-toastify"
 const QuestionList = ({ questions }) => {
+  console.log("questions ", questions)
   const [selected, setSelected] = useState({});
   const [showTest, setShowTest] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -180,6 +181,8 @@ const QuestionList = ({ questions }) => {
         </>
       )}
 
+      
+
       {/* Download PDF Button */}
       {showTest && (
         <div className="flex justify-center mt-4">
@@ -191,7 +194,11 @@ const QuestionList = ({ questions }) => {
           </button>
         </div>
       )}
+
+      
     </div>
+
+    
   );
 };
 

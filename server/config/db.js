@@ -18,7 +18,7 @@ const dbConnect = () => {
              console.log("Old mcqs removed.");
 
             // Insert new quwstions
-            await QuestionModel.insertMany(mcqs);
+            await QuestionModel.insertMany(questions);
             console.log("New questions added to database!");
 
             // Insert new mcqs

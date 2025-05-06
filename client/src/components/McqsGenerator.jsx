@@ -18,8 +18,8 @@ const McqsGenerator = () => {
           setMcqs(res.data);
           setChapterName(res.data[0].chapterName);
         })
-        .catch(() => {
-          console.log("error");
+        .catch((err) => {
+          console.log("error",err);
         }) 
       
     }

@@ -5,7 +5,7 @@ const getMcqsByChapter = async (req, res) => {
     const chapter = parseInt(req.params.chapter);
     const mcqs = await Mcqs.find({ chapter });
     res.json(mcqs);
-    console.log(mcqs)
+    // console.log(mcqs)
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
