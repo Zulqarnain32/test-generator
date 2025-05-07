@@ -11,6 +11,7 @@ const QuestionList = ({ questions }) => {
   const [loading, setLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
+  console.log("user is ",user)
   let shortQuestion = questions.filter((question) => {
      return question.type == "short"
   })

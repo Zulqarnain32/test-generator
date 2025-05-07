@@ -1,22 +1,18 @@
-import { useState, useEffect,useContext } from 'react';
-// import ChapterButtons from './ChapterButton';
+import { useState, useEffect } from 'react';
 import ChapterButtonsMcqs from './ChapterButtonMcqs';
-// import QuestionList from './QuestionList';
 import axios from 'axios';
 import McqsList from './McqsList';
-import { AuthContext } from '../global/AuthContext';
 
 const McqsGenerator = () => {
   const [chapter, setChapter] = useState(null);
   const [mcqs, setMcqs] = useState([]);
   const [chapterName, setChapterName] = useState("");
-  const { user } = useContext(AuthContext)
-  // console.log("user school is ", user?.school)
 
 
   useEffect(() => {
     if (chapter) {
-      axios.get(`http://localhost:5000/api/mcqs/chapter/${chapter}`)
+      // axios.get(`http://localhost:5000/api/mcqs/chapter/${chapter}`)
+      axios.get(`https://test-generator.vercel.app/api/mcqs/chapter/${chapter}`)
        
         .then((res) => {
           setMcqs(res.data);

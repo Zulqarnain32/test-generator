@@ -10,13 +10,6 @@
           // origin: ["https://test-generator-frontend-amber.vercel.app"],
     
     
-          {/* Questions */}
-            {/* <ol className="list-decimal pl-6 space-y-3 text-gray-800 text-lg">
-              {selectedQuestions.map((q, idx) => (
-                <li key={q._id}>{q.question}</li>
-              ))}
-            </ol> */}
-
-            {/* Questions by Type */}
+     
 
 

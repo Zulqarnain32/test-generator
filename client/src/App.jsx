@@ -13,7 +13,6 @@ import McqsGenerator from './components/McqsGenerator';
 
 function App() {
    const { user } = useContext(AuthContext);
-  //  console.log("home user is ", user)
   
   return (
     <Router>
@@ -26,7 +25,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/test-generator" element={<TestGenerator/>} /> */}
         <Route path="/test-generator" element={user?.email ? <TestGenerator/>:<Login/>} />
         <Route path="/mcqs-generator" element={user?.email ? <McqsGenerator/>:<Login/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
